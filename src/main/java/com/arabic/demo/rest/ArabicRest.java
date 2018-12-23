@@ -42,7 +42,8 @@ public class ArabicRest {
 
 	@GetMapping()
 	public ResponseEntity<String> getArabicWord(@RequestParam(name = "text", required = true) String text) throws Exception {
-		String result = processOfDiacritics(text.trim(), tagger);
+		String textArr[] = text.trim().split(" ", 2);
+		String result = tagger.diacritize(textArr[0]) + " " + processOfDiacritics(textArr[1], tagger);
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 
